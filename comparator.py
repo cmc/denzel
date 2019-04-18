@@ -32,7 +32,7 @@ app.config.from_json(
 )
 
 
-def send_to_slack(self, text):
+def send_to_slack(text):
     data = {
         'text': str(text),
         'username': 'HAL',
@@ -42,8 +42,8 @@ def send_to_slack(self, text):
     response = requests.post(app.config['SLACK_WEBHOOK'], data=json.dumps(
         data), headers={'Content-Type': 'application/json'})
 
-    self.logger.info('Response: ' + str(response.text))
-    self.logger.info('Response code: ' + str(response.status_code))
+    logging.info('Response: ' + str(response.text))
+    logging.info('Response code: ' + str(response.status_code))
 
 
 @app.route('/compare', methods=['POST'])
