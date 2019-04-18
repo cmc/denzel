@@ -1,7 +1,7 @@
 # denzel
 checks site content against known good ssdeep hash, identifies matches.
 
-Implements SSDEEP piecewise hashing to ghetto-identify phishing sites, or sites which have a 55% match on known good sites. Thus, may be sites which have been cloned to phish our users.
+Implements ssdeep piecewise hashing to identify phishing sites, or sites which have a >55% match on our company domain. It compares the returned data from the site and compares. Sites which have a high similarity to ours are considered potential phishing sites, can be blocked on the corporate network and sent for takedown.
 
 Also, Denzel Washington is "the equalizer", and this code checks.. if site content across 2 sites match.. if its.. equal.. yeah you get it.
 
