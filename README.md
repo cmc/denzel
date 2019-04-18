@@ -21,3 +21,9 @@ curl --header Content-Type: application/json --request POST --data {"domain":"bi
 
 root@ip-172-30-0-111:/home/ubuntu/comparator#
 </code>
+
+Coming soon - 
+
+  - Submit matches direct to OpenDNS API for blocking
+  - Crawl several times w/ various UAs
+  - Implement regional proxies when requesting content from domains
