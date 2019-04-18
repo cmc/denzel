@@ -4,7 +4,7 @@ WORKDIR /src/
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update -y
-RUN apt-get install -y postgresql curl python-ssdeep ssdeep
+RUN apt-get install -y python3-ssdeep ssdeep python-ssdeep libfuzzy-dev
 #COPY config ./config
 COPY *.py ./
 ADD  ./ .

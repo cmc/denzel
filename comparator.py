@@ -11,7 +11,7 @@ app = Flask(__name__)
 def compare():
     if not request.json:
         abort(400)
-    print request.json
+    print(request.json)
 
  
 if __name__ == '__main__':
