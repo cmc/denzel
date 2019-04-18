@@ -4,9 +4,8 @@ WORKDIR /src/
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 RUN apt-get update -y
-RUN apt-get install -y postgresql curl
-COPY db ./db
-COPY config ./config
+RUN apt-get install -y postgresql curl python-ssdeep ssdeep
+#COPY config ./config
 COPY *.py ./
 ADD  ./ .
 CMD [ "python", "comparator.py" ]

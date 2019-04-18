@@ -4,16 +4,14 @@ from flask import request
 from flask import render_template
 from flask import redirect, url_for
   
-from raspipe import RasPipe
     
 app = Flask(__name__)
   
-rp = RasPipe(None)
-rp.input_lines.append('starting up...')
-rp.render_frame()
- 
 @app.route('/compare', methods=['POST'])
 def compare():
+    if not request.json:
+        abort(400)
+    print request.json
 
  
 if __name__ == '__main__':
