@@ -1,4 +1,5 @@
 import ssdeep
+import json
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -12,6 +13,7 @@ def compare():
     if not request.json:
         abort(400)
     print(request.json)
+    return json.dumps(request.json)
 
  
 if __name__ == '__main__':
