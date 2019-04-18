@@ -1,2 +1,3 @@
 flask
 ssdeep
+requests
