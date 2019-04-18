@@ -6,4 +6,4 @@ Used to identify phishing sites, or sites which have a 55% match on known good s
 Also, Denzel Washington is "the equalizer". This checks.. if site content across 2 sites match.. if its.. equal.. yeah you get it.
 
 
-<img src="https://github.com/cmc/denzel/blob/master/images/denzel.jpg" width="1000" height="800">
+<img src="https://github.com/cmc/denzel/blob/master/images/denzel.jpg" width="1000" height="500">
