@@ -1,7 +1,7 @@
 # denzel
  REST service, accepts submissions of domains and checks site content against known good site, returns match status.
 
-Implements ssdeep piecewise hashing to identify phishing sites, or sites which have a >55% match on our company domain. It compares the returned data from the site and compares. Sites which have a high similarity to ours are considered potential phishing sites, can be blocked on the corporate network and sent for takedown.
+Implements ssdeep piecewise hashing to identify phishing sites, or sites which have a >55% content match on our company site. It compares the returned html/data from the submitted site and compares hashes with our known good site. Submitted domains which have a high content similarity to ours are considered potential phishing sites. These can then be blocked on the corporate network and sent for takedown.
 
 Also, Denzel Washington is "the equalizer", and this code checks.. if site content across 2 sites match.. if its.. equal.. yeah you get it.
 
