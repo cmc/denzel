@@ -32,6 +32,20 @@ app.config.from_json(
 )
 
 
+def send_to_slack(self, text):
+    data = {
+        'text': str(text),
+        'username': 'HAL',
+        'icon_emoji': ':robot_face:'
+    }
+
+    response = requests.post(app.config['SLACK_WEBHOOK'], data=json.dumps(
+        data), headers={'Content-Type': 'application/json'})
+
+    self.logger.info('Response: ' + str(response.text))
+    self.logger.info('Response code: ' + str(response.status_code))
+
+
 @app.route('/compare', methods=['POST'])
 def compare():
     if not request.json:
@@ -53,11 +67,12 @@ def compare():
         logging.info(e)
 
     resp = {}
+    resp['domain'] = domain
     if result > 55:
         resp['result'] = "MATCH"
     else:
         resp['result'] = "NO_MATCH"
-
+    send_to_slack(resp)
     return json.dumps(resp)
 
 

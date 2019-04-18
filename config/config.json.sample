@@ -1,5 +1,5 @@
 {
   "DEBUG": true,
   "USER_RELOADER": true,
-  "SLACK_URL": "https://hooks.slack.com/services/NICE/TRY/MY/MUCHACHO
+  "SLACK_WEBHOOK": "https://hooks.slack.com/services/NICE/TRY/MY/MUCHACHO"
 }
