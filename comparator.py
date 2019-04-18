@@ -43,7 +43,14 @@ def compare():
         logging.info(result)
     except Exception as e:
         logging.info(e)
-    return json.dumps(request.json)
+    
+    resp = {}
+    if result > 55:
+        resp['result'] = "MATCH"
+    else:
+        resp['result'] = "NO_MATCH"
+            
+    return json.dumps(resp)
 
  
 if __name__ == '__main__':
