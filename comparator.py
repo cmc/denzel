@@ -55,12 +55,12 @@ def compare():
     try:
         domain = request.json['domain']
         logging.info(domain)
-        dom_hash_bitmex = ssdeep.hash(
-            requests.get("https://www.bitmex.com", verify=False).text)
+        dom_hash_ref = ssdeep.hash(
+            requests.get(app.config['REFERENCE_SITE'], verify=True).text)
         dom_hash_submission = ssdeep.hash(
             requests.get("https://" + domain, verify=False).text)
-        result = ssdeep.compare(dom_hash_bitmex, dom_hash_submission)
-        logging.info(dom_hash_bitmex)
+        result = ssdeep.compare(dom_hash_ref, dom_hash_submission)
+        logging.info(dom_hash_ref)
         logging.info(dom_hash_submission)
         logging.info(result)
     except Exception as e:

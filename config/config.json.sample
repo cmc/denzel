@@ -1,5 +1,6 @@
 {
   "DEBUG": true,
   "USER_RELOADER": true,
-  "SLACK_WEBHOOK": "https://hooks.slack.com/services/NICE/TRY/MY/MUCHACHO"
+  "SLACK_WEBHOOK": "https://hooks.slack.com/services/NICE/TRY/MY/MUCHACHO",
+  "REFERENCE_SITE": "www.bitmex.com"
 }
