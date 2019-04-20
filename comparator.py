@@ -58,7 +58,7 @@ def compare():
         dom_hash_ref = ssdeep.hash(
             requests.get(app.config['REFERENCE_SITE'], verify=True).text)
         dom_hash_submission = ssdeep.hash(
-            requests.get("https://" + domain, verify=False).text)
+            requests.get("http://" + domain, verify=False).text)
         result = ssdeep.compare(dom_hash_ref, dom_hash_submission)
         logging.info(dom_hash_ref)
         logging.info(dom_hash_submission)
@@ -72,6 +72,7 @@ def compare():
         resp['result'] = "MATCH"
     else:
         resp['result'] = "NO_MATCH"
+    resp['percent'] = int(result)
     send_to_slack(resp)
     return json.dumps(resp)
 

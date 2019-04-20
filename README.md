@@ -24,6 +24,8 @@ root@ip-172-30-0-111:/home/ubuntu/comparator#
 
 Coming soon - 
 
-  - Submit matches direct to OpenDNS API for blocking
+  - Submit matches (suspected phish domains) direct to OpenDNS API for blocking
+  - db backed domain whitelist
   - Crawl several times w/ various UAs
   - Implement regional proxies when requesting content from domains
+  - Capture and store the hostile site DOM at time of crawl, request headers + screenshot of the hostile site to supply in takedown communications as evidence of bad faith of behalf of the registrant.
