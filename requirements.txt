@@ -1,3 +1,7 @@
 flask
 ssdeep
 requests
+celery
+defang
+Flask-RESTful
+redis

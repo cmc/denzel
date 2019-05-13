@@ -1,0 +1,72 @@
+version: '2.2'
+services:
+  denzel:
+    hostname: denzel.localhost
+    image: denzel:latest
+    scale: 1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080
+    environment:
+      - FLASK_DEBUG=true
+      - DEBUG=true
+      - ENTRYPOINT_CMD=denzel
+      - HTTP_X_SCHEME=http
+      - SERVICE_PORTS=8080
+    volumes:
+        - "./lib:/src/lib"
+        - "./api:/src/api"
+        - "./config:/src/config"
+        - "./workers:/src/workers"
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - redis
+  denzel-workers:
+    image: denzel:latest
+    scale: 1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ENTRYPOINT_CMD=worker
+    volumes:
+        - "./lib:/src/lib"
+        - "./api:/src/api"
+        - "./config:/src/config"
+        - "./workers:/src/workers"
+    networks:
+      - backend
+    links:
+      - redis
+    depends_on:
+      - redis
+  haproxy:
+    image: dockercloud/haproxy:latest
+    links:
+      - denzel
+    environment:
+      - VIRTUAL_HOST=http://denzel.dev:80/*
+      - DOCKER_HOST
+    depends_on:
+      - denzel
+    ports:
+      - '80:80'        
+    networks:
+      - frontend
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  redis:
+    image: redis:latest
+    command: ["redis-server"]
+    hostname: redis
+    networks:
+      - backend
+    ports:
+      - "6379:6379"
+networks:
+  frontend:
+  backend:
