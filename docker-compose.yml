@@ -25,6 +25,18 @@ services:
       - frontend
     depends_on:
       - redis
+  privoxy:
+    image: privoxy:latest
+    scale: 1
+    build:
+      context: aux/privoxy
+      dockerfile: Dockerfile
+    volumes:
+        - "./config:/src/config"
+    networks:
+      - backend
+    ports:
+      - 8118
   denzel-workers:
     image: denzel:latest
     scale: 1

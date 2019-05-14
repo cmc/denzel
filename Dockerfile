@@ -8,6 +8,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY config ./config
 COPY workers ./workers
 COPY lib ./lib
+COPY api ./api
 COPY *.py ./
-ADD  ./ .
+COPY *.sh ./
 CMD [ "/bin/sh", "/src/entrypoint.sh" ]
