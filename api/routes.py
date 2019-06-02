@@ -13,10 +13,11 @@ class Compare(Resource):
         if not request.json:
             abort(400)
         logging.info(request.json)
-        urls = []
-        urls.append(request.json['ref'])
-        urls.append(request.json['domain'])
-        job  = comparator.compare.delay(urls)
+        equalize = {
+            'refs': request.json['refs'],
+            'domains': request.json['domains']
+        }
+        job  = comparator.compare.delay(equalize)
         return "OK"
 
     def get(self):

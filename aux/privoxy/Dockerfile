@@ -11,5 +11,4 @@ COPY ./config/* /etc/privoxy/
 # make sure files are owned by privoxy user
 RUN chown -R privoxy /etc/privoxy/*
 USER privoxy
-ENTRYPOINT [ "/bin/sleep", "8000"]
-# CMD ["/src/config/"]
+ENTRYPOINT [ "privoxy", "--no-daemon", "/etc/privoxy/privoxy.conf"]

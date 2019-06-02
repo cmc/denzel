@@ -8,33 +8,31 @@ app = celery.Celery('denzel')
 
 with open(getenv('APP_CONFIG_PATH', '/src/config/config.json'), 'r') as f:
     config = json.load(f)
-    print(config)
     app.conf.update(BROKER_URL=config['REDIS'],
                     CELERY_RESULT_BACKEND=config['REDIS'])
 
 
 @app.task(bind=True)
-def compare(self, urls):
-    """
-        This is going to get a huge refactor... eventually
-        todos: Caching of results
-        proxy config / rotation
-        knownbad table (cached ssdeeps of gsuite/aws/sso logins)
-    """
-    dom_hash_ref = fetchssdeep(urls[0])
-    dom_hash_submission = fetchssdeep(urls[1])
-    print(dom_hash_ref)
-    print(dom_hash_submission)
+def compare(self, equalize):
+    refs = {}
+    for domain in equalize['refs']:
+        refs[domain] = fetchssdeep(domain)
+    suspect_domains = {}
+    for domain in equalize['domains']:
+        suspect_domains[domain] = fetchssdeep(domain)
 
-    result = ssdeep.compare(dom_hash_ref, dom_hash_submission)
-    resp = {
-        'url': urls[1],
-        'ref': urls[0]
-    }
-    if result > 55:
-        resp['result'] = "MATCH"
-    else:
-        resp['result'] = "NO_MATCH"
-    resp['percent'] = int(result)
-    send_to_slack(json.dumps(resp))
+    for reference in refs:
+        for suspect in suspect_domains:
+            print(reference)
+            print(suspect)
+            r = ssdeep.compare(refs[reference],
+                               suspect_domains[suspect]
+                              )
+            if r > 55:
+                resp = {
+                    'reference_url': reference,
+                    'suspect_url': suspect,
+                    'percent': int(r)
+                }
+                send_to_slack(json.dumps(resp))
     return

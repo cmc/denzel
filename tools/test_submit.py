@@ -1,6 +1,6 @@
 import requests
-jd = { 'ref': 'https://www.github.com',
-      'domain': 'https://www.google.com/'
+jd = { 'refs': ['https://www.github.com'],
+      'domains': ['https://www.google.com/', 'https://www.github.com']
      }
 
 r = requests.post('http://localhost/compare', json=jd)
