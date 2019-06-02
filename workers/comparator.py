@@ -11,8 +11,8 @@ with open(getenv('APP_CONFIG_PATH', '/src/config/config.json'), 'r') as f:
     app.conf.update(BROKER_URL=config['REDIS'],
                     CELERY_RESULT_BACKEND=config['REDIS'])
 
-
-@app.task(bind=True)
+# http://docs.celeryproject.org/en/master/userguide/tasks.html#automatic-retry-for-known-exceptions
+@app.task(bind=True, soft_time_limit=600, autoretry_for=(Exception,), retry_backoff=2)
 def compare(self, equalize):
     refs = {}
     for domain in equalize['refs']:

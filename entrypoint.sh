@@ -23,7 +23,7 @@ if [ -n "$ENTRYPOINT_CMD" ]; then
     denzel )
         python run.py ;;
     worker )
-       PWD=/src/ celery worker -A workers.comparator --loglevel=debug ;;    
+       PWD=/src/ celery worker -A workers.comparator  -Ofair --loglevel=debug ;;    
     * )
             echo "ERROR: Invalid Entrypoint $ENTRYPOINT_CMD."
         exit 1 ;;
