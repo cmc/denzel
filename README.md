@@ -9,15 +9,13 @@ Also, Denzel Washington is "the equalizer", and this code checks.. if site conte
 <img src="https://github.com/cmc/denzel/blob/master/images/denzel.jpg" width="1000" height="500">
 
 <code>
-root@ip-172-30-0-111:/home/ubuntu/comparator# sh -x tools/test_submit.sh
+root@ip-172-30-0-111:/home/ubuntu/comparator# python3 tools/test_submit.py
 
-curl --header Content-Type: application/json --request POST --data {"domain":"bitmex.com", "source":"trollbox"} http://localhost:5000/compare
+curl --header Content-Type: application/json --request POST --data {"domains":["https://www.google.com"], "refs":[ "https://www.yahoo.com"]} http://localhost:5000/compare
   
-{"result": "MATCH"}
-  
-curl --header Content-Type: application/json --request POST --data {"domain":"binance.com", "source":"trollbox"} http://localhost:5000/compare
+{"OK"}
 
-{"result": "NO_MATCH"}
+If there is a match between the domains and references it will be submitted via the your slack webhook.
 
 root@ip-172-30-0-111:/home/ubuntu/comparator#
 </code>
