@@ -1,9 +1,8 @@
-version: '2.2'
+version: '3'
 services:
   denzel:
     hostname: denzel.localhost
     image: denzel:latest
-    scale: 1
     build:
       context: .
       dockerfile: Dockerfile
@@ -25,26 +24,25 @@ services:
       - frontend
     depends_on:
       - redis
+      - denzel-workers
   privoxy:
     image: privoxy:latest
-    scale: 1
     build:
       context: aux/privoxy
       dockerfile: Dockerfile
-    volumes:
-        - "./config:/src/config"
     networks:
       - backend
     ports:
       - 8118
   denzel-workers:
     image: denzel:latest
-    scale: 1
     build:
       context: .
       dockerfile: Dockerfile
     environment:
       - ENTRYPOINT_CMD=worker
+      - HTTP_PROXY=privoxy:8118
+      - HTTPS_PROXY=privoxy:8118
     volumes:
         - "./lib:/src/lib"
         - "./api:/src/api"
@@ -54,8 +52,10 @@ services:
       - backend
     links:
       - redis
+      - privoxy
     depends_on:
       - redis
+      - privoxy
   haproxy:
     image: dockercloud/haproxy:latest
     links:
